@@ -18,13 +18,26 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+
 }
+
+#buttons > #random-btn {
+    padding: 5px;
+    margin: 2px;
+}
+
+#buttons > #balance-btn {
+    padding: 5px;
+    margin: 2px;
+}
+
 main {
     flex-grow: 1;
 }
 
 .hero-table {
     display: flex;
+    flex-wrap: wrap;
     border: 10px black;
     flex-direction: row;
     min-height: 20vh;
@@ -35,6 +48,11 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+img {
+    width: 15vh;
+    height: 15vh;
 }
 
 footer {
