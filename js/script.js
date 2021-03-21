@@ -1,28 +1,30 @@
 // initial variables
-let heroArray = [];
-let appendingHeroArray = [];
-let heroTagI = 0;
-let randomHero;
-let buttonI = 0;
-let $newHero;
-const min = 0;
-const max = 119;
+let heroArray = []; // array to hold data from API
+let appendingHeroArray = []; //array that holds the specific ID's and data of heroes that will go on the DOM
+let randomHero; //number that chooses what hero in the heroArray will be picked
+let $newHero; //new hero object that creates the elements needed to be appened to the DOM
+const min = 0; // min index number for hero Array
+const max = 119; // max index number of hero Array
+
+
+// DOM ELEMENTS
+
 const $randomEl = document.getElementById("random-btn");
-console.log("randomEl: " + $randomEl);
 const $balanceEl = document.getElementById("balance-btn");
 const $tableEl = document.querySelector("hero-table");
-console.log("$tableEl: " + $tableEl);
-// event listeners
+
+// EVENT LISTENERS
 
 $randomEl.addEventListener("click", getRandom);
-//$balanceEl.addEventListener("click", getBalance());
-// functions
+$balanceEl.addEventListener("click", getBalance);
+
+// FUNCTIONS
 
 // this function pulls in the data from the API and copies to the hero Array for use
+
 function init() {
     $.ajax("https://api.opendota.com/api/heroes").then(function (data) {
-        // console.log("Heres the data: " +data);
-        heroArray = data;
+        heroArray = data.map(a => Object.assign({}, a));;
         console.log("heroArray: " + heroArray);
     }, function (error) {
         console.log(error);
@@ -32,7 +34,12 @@ function init() {
 //function to randomly pick 5 heroes from the heroArray
 
 function getRandom() {
-    const randomHeroArray =[];
+    const randomHeroArray = [];
+
+    //---------------------------
+    // this is the portion that checks to see if the random button has been pressed before and lets
+    //the js know to remove  
+
     // if(randomI > 0){
     //     let $selectionRemove = document.querySelector("table");
     //     console.log("selectionRemove: " + $selectionRemove);
@@ -40,8 +47,9 @@ function getRandom() {
     //     console.log("newHero: " + $newHero);
     //     $newHero.remove();
     //     //$selectionRemove.removeChild($newHero);
-        
     // }
+    //---------------------------
+
     for (let i = 0; i < 5; i++) {
         console.log("heres i: " + i);
         randomHero = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -63,12 +71,20 @@ function getRandom() {
 //function to get a balanced team of heroes
 
 function getBalance() {
-    for (let i = 0; i < 5; i++) {
-        console.log("heres i: " + i);
+    giveBalance();
 
-    }
 }
 
+function giveBalance() {
+    heroArray.forEach(function (hero) {
+        hero["tankValue"] = 1;
+        hero["supportValue"] = .5;
+        hero["carryValue"] = 0;
+
+        console.log("updated hero: " + hero);
+
+    });
+}
 // function to append heroes to DOM
 
 function appendHeroes(heroesToAppend) {
@@ -89,9 +105,6 @@ function appendHeroes(heroesToAppend) {
         heroAtt3Tag = heroArray[hero]["roles"][2];
         console.log("heroeAtt3Tag: " + heroAtt3Tag);
 
-        if(buttonI > 0) {
-            $(".hero-table").remove("hero-selection");
-        }
         $newHero = `<tr class="hero-selection">
         <td><img src="./pics/a0.png"></td>
         <td>${heroNameTag}</td>
@@ -109,7 +122,6 @@ function appendHeroes(heroesToAppend) {
         console.log()
 
     })
-    buttonI++;
 
 }
 
