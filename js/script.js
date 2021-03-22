@@ -26,6 +26,7 @@ function init() {
     $.ajax("https://api.opendota.com/api/heroes").then(function (data) {
         heroArray = data.map(a => Object.assign({}, a));;
         console.log("heroArray: " + heroArray);
+        giveBalance();
     }, function (error) {
         console.log(error);
     });
@@ -71,19 +72,73 @@ function getRandom() {
 //function to get a balanced team of heroes
 
 function getBalance() {
-    giveBalance();
 
 }
 
 function giveBalance() {
     heroArray.forEach(function (hero) {
-        hero["tankValue"] = 1;
-        hero["supportValue"] = .5;
-        hero["carryValue"] = 0;
-
-        console.log("updated hero: " + hero);
+        if (hero.roles.includes("Support")) {
+            if (hero.roles.includes("Carry")) {
+                if (hero.roles[0] === "Support") {
+                    hero["zTankValue"] = 0;
+                    hero["zSupportValue"] = 1;
+                    hero["zCarryValue"] = .5;
+                } else if (hero.roles[0] === "Carry") {
+                    hero["zTankValue"] = 0;
+                    hero["zSupportValue"] = .5;
+                    hero["zCarryValue"] = 1;
+                } else {
+                    hero["zTankValue"] = 0;
+                    hero["zSupportValue"] = .5;
+                    hero["zCarryValue"] = .5;
+                }
+            } else if (hero.roles.includes("Durable")) {
+                if (hero.roles[0] === "Support") {
+                    hero["zTankValue"] = .5;
+                    hero["zSupportValue"] = 1;
+                    hero["zCarryValue"] = 0;
+                } else if (hero.roles[0] === "Durable") {
+                    hero["zTankValue"] = 1;
+                    hero["zSupportValue"] = .5;
+                    hero["zCarryValue"] = 0;
+                } else {
+                    hero["zTankValue"] = .5;
+                    hero["zSupportValue"] = .5;
+                    hero["zCarryValue"] = 0;
+                }
+            } else {
+                hero["zTankValue"] = 0;
+                hero["zSupportValue"] = 1;
+                hero["zCarryValue"] = 0;
+            }
+        } else if (hero.roles.includes("Carry")) {
+            if (hero.roles.includes("Durable")) {
+                if (hero.roles[0] === "Carry") {
+                    hero["zTankValue"] = .5;
+                    hero["zSupportValue"] = 0;
+                    hero["zCarryValue"] = .5;
+                } else if (hero.roles[0] === "Durable") {
+                    hero["zTankValue"] = 1;
+                    hero["zSupportValue"] = 0;
+                    hero["zCarryValue"] = .5;
+                }
+            } else {
+                hero["zTankValue"] = 0;
+                hero["zSupportValue"] = 0;
+                hero["zCarryValue"] = 1;
+            }
+        } else if (hero.roles.includes("Durable")) {
+            hero["zTankValue"] = 1;
+            hero["zSupportValue"] = 0;
+            hero["zCarryValue"] = 0;
+        } else {
+            hero["zTankValue"] = .25;
+            hero["zSupportValue"] = .25;
+            hero["zCarryValue"] = .25;
+        }
 
     });
+    console.log("heroArray after giveBalance: " + heroArray);
 }
 // function to append heroes to DOM
 
