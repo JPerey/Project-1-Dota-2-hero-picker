@@ -72,7 +72,21 @@ function getRandom() {
 //function to get a balanced team of heroes
 
 function getBalance() {
+    const balanceHeroArray = []; // array of balanced heroes that will be sent to appendHeroes
 
+    let supportTank = 0; // variable to hold amount of 'support' a team has
+    let carryTank = 0; // variable to hold amount of 'carry' a team has
+    let tankTank = 0; // variable to hold amount of 'tank' a team has
+    let balanceHeroI = 0; // iterator that will stop while loop when hero array is filled with 5 heroes
+
+    while (balanceHeroArray.length > 5) {
+        randomHero = Math.floor(Math.random() * (max - min + 1)) + min;
+        console.log("Random Hero #: " + randomHero)
+        while (balanceHeroArray.indexOf(randomHero) !== -1) {
+            console.log("I ran and the index was: " + balanceHeroArray.indexOf(randomHero));
+            randomHero = Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+    }
 }
 
 function giveBalance() {
@@ -140,7 +154,8 @@ function giveBalance() {
     });
     console.log("heroArray after giveBalance: " + heroArray);
 }
-// function to append heroes to DOM
+
+// FUNCTION TO APPEND HEROES TO DOM
 
 function appendHeroes(heroesToAppend) {
     console.log("heres the herosToAppendArray: " + heroesToAppend);
