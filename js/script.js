@@ -65,6 +65,7 @@ function getBalance() {
     let supportTank = 0; // variable to hold amount of 'support' a team has
     let carryTank = 0; // variable to hold amount of 'carry' a team has
     let tankTank = 0; // variable to hold amount of 'tank' a team has
+    let loopBreakI = 0;
     let previousHero = []; // array that will hold previous heroes so that loop does not iterate over previous heroes
 
     if (buttonI > 0) {
@@ -73,7 +74,6 @@ function getBalance() {
 
     while (balanceHeroArray.length < 5) {
         randomHero = Math.floor(Math.random() * (max - min + 1)) + min;
-        previousHero.push(randomHero);
         console.log("Random Hero #: " + randomHero)
         while ((balanceHeroArray.indexOf(randomHero) !== -1) || previousHero.includes(randomHero)) {
             console.log("I ran and the index was: " + balanceHeroArray.indexOf(randomHero));
@@ -83,6 +83,7 @@ function getBalance() {
             if (carryTank < 1.5) {
                 if (tankTank < 1.5) {
                     balanceHeroArray.push(randomHero);
+                    previousHero.push(randomHero);
                     tankTank += heroArray[randomHero].zTankValue;
                     carryTank += heroArray[randomHero].zCarryValue;
                     supportTank += heroArray[randomHero].zSupportValue;
@@ -90,6 +91,7 @@ function getBalance() {
                     console.log("hero # " + randomHero + " is too tanky.");
                 } else {
                     balanceHeroArray.push(randomHero);
+                    previousHero.push(randomHero);
                     tankTank += heroArray[randomHero].zTankValue;
                     carryTank += heroArray[randomHero].zCarryValue;
                     supportTank += heroArray[randomHero].zSupportValue;
@@ -98,6 +100,7 @@ function getBalance() {
                 console.log("hero # " + randomHero + " does too much damage.");
             } else if (tankTank < 1.5) {
                 balanceHeroArray.push(randomHero);
+                previousHero.push(randomHero);
                 tankTank += heroArray[randomHero].zTankValue;
                 carryTank += heroArray[randomHero].zCarryValue;
                 supportTank += heroArray[randomHero].zSupportValue;
@@ -114,6 +117,7 @@ function getBalance() {
         } else if (carryTank < 1.5) {
             if (tankTank < 1.5) {
                 balanceHeroArray.push(randomHero);
+                previousHero.push(randomHero);
                 tankTank += heroArray[randomHero].zTankValue;
                 carryTank += heroArray[randomHero].zCarryValue;
                 supportTank += heroArray[randomHero].zSupportValue;
@@ -129,6 +133,7 @@ function getBalance() {
             console.log("hero # " + randomHero + " does too much damage.");
         } else if (tankTank < 1.5) {
             balanceHeroArray.push(randomHero);
+            previousHero.push(randomHero);
             tankTank += heroArray[randomHero].zTankValue;
             carryTank += heroArray[randomHero].zCarryValue;
             supportTank += heroArray[randomHero].zSupportValue;
@@ -136,12 +141,18 @@ function getBalance() {
             console.log("hero # " + randomHero + " is too tanky.");
         } else {
             balanceHeroArray.push(randomHero);
+            previousHero.push(randomHero);
             tankTank += heroArray[randomHero].zTankValue;
             carryTank += heroArray[randomHero].zCarryValue;
             supportTank += heroArray[randomHero].zSupportValue;
         }
 
         console.log("bottom of getBalance while loop.");
+        if (loopBreakI > 30) {
+            alert("current hero selection cannot find a final hero to fill. please rety");
+            break;
+        }
+        loopBreakI++;
     }
     appendingHeroArray = balanceHeroArray;
     buttonI++;
@@ -212,7 +223,7 @@ function giveBalance() {
         }
 
     });
-    console.log("heroArray after giveBalance: " + heroArray);
+    console.log("heroArray has balance values");
 };
 
 // FUNCTION TO REMOVE HEROES FROM DOM
@@ -240,7 +251,7 @@ function appendHeroes(heroesToAppend) {
         console.log("heroeAtt3Tag: " + heroAtt3Tag);
 
         newHero = `<tr class="hero-selection">
-        <td><img src="./pics/a0.png"></td>
+        <td><img src="./pics/a${hero}.png"></td>
         <td>${heroNameTag}</td>
         <td>${heroAtt1Tag}</td>
         <td>${heroAtt2Tag}</td>
