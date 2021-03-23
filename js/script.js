@@ -79,14 +79,55 @@ function getBalance() {
     let tankTank = 0; // variable to hold amount of 'tank' a team has
     let balanceHeroI = 0; // iterator that will stop while loop when hero array is filled with 5 heroes
 
-    while (balanceHeroArray.length > 5) {
+    while (balanceHeroArray.length < 5) {
         randomHero = Math.floor(Math.random() * (max - min + 1)) + min;
         console.log("Random Hero #: " + randomHero)
         while (balanceHeroArray.indexOf(randomHero) !== -1) {
             console.log("I ran and the index was: " + balanceHeroArray.indexOf(randomHero));
             randomHero = Math.floor(Math.random() * (max - min + 1)) + min;
         }
+        if (supportTank < 1.5) {
+            if (carryTank < 1.5) {
+                if (tankTank < 1.5) {
+                    balanceHeroArray.push(randomHero);
+                } else if (heroArray[randomHero].zTankValue > 0) {
+                    console.log("hero # " + randomHero + " is too tanky.");
+                } else {
+                    balanceHeroArray.push(randomHero);
+                }
+            } else if (heroArray[randomHero].zCarryValue > 0) {
+                console.log("hero # " + randomHero + " does too much damage.");
+            } else if (tankTank < 1.5) {
+                balanceHeroArray.push(randomHero);
+            } else if (heroArray[randomHero].zTankValue > 0) {
+                console.log("hero # " + randomHero + " is too tanky.");
+            } else {
+                balanceHeroArray.push(randomHero);
+            }
+        } else if (heroArray[randomHero].zSupportValue > 0) {
+            console.log("hero # " + randomHero + " supports too much.");
+        } else if (carryTank < 1.5) {
+            if (tankTank < 1.5) {
+                balanceHeroArray.push(randomHero);
+            } else if (heroArray[randomHero].zTankValue > 0) {
+                console.log("hero # " + randomHero + " is too tanky.");
+            } else {
+                balanceHeroArray.push(randomHero);
+            }
+        } else if (heroArray[randomHero].zCarryValue > 0) {
+            console.log("hero # " + randomHero + " does too much damage.");
+        } else if (tankTank < 1.5) {
+            balanceHeroArray.push(randomHero);
+        } else if (heroArray[randomHero].zTankValue > 0) {
+            console.log("hero # " + randomHero + " is too tanky.");
+        } else {
+            balanceHeroArray.push(randomHero);
+        }
+
+        console.log("bottom of getBalance while loop.");
     }
+    appendingHeroArray = balanceHeroArray;
+    appendHeroes(appendingHeroArray);
 }
 
 function giveBalance() {
