@@ -3,6 +3,7 @@ let heroArray = []; // array to hold data from API
 let appendingHeroArray = []; //array that holds the specific ID's and data of heroes that will go on the DOM
 let randomHero; //number that chooses what hero in the heroArray will be picked
 let $newHero; //new hero object that creates the elements needed to be appened to the DOM
+let buttonI = 0;
 const min = 0; // min index number for hero Array
 const max = 119; // max index number of hero Array
 
@@ -20,7 +21,7 @@ $balanceEl.addEventListener("click", getBalance);
 
 // FUNCTIONS
 
-// this function pulls in the data from the API and copies to the hero Array for use
+// FUNCTION TO PULL DATA FROM API AND MAP TO HEROARRAY
 
 function init() {
     $.ajax("https://api.opendota.com/api/heroes").then(function (data) {
@@ -30,26 +31,16 @@ function init() {
     }, function (error) {
         console.log(error);
     });
-}
+};
 
-//function to randomly pick 5 heroes from the heroArray
+//FUNCTION TO GIVE 5 RANDOMLY PICKED HEROES
 
 function getRandom() {
     const randomHeroArray = [];
 
-    //---------------------------
-    // this is the portion that checks to see if the random button has been pressed before and lets
-    //the js know to remove  
-
-    // if(randomI > 0){
-    //     let $selectionRemove = document.querySelector("table");
-    //     console.log("selectionRemove: " + $selectionRemove);
-    //     let $heroListingEl = document.querySelector("hero-selection");
-    //     console.log("newHero: " + $newHero);
-    //     $newHero.remove();
-    //     //$selectionRemove.removeChild($newHero);
-    // }
-    //---------------------------
+    if (buttonI > 0) {
+        removeHeroes();
+    }
 
     for (let i = 0; i < 5; i++) {
         console.log("heres i: " + i);
@@ -65,11 +56,11 @@ function getRandom() {
         console.log("Heres randomHeroArray: " + randomHeroArray);
     }
     appendingHeroArray = randomHeroArray;
-    //randomI++;
+    buttonI++;
     appendHeroes(appendingHeroArray);
-}
+};
 
-//function to get a balanced team of heroes
+//FUNCTION TO GIVE BALANCED TEAM OF HEROES
 
 function getBalance() {
     const balanceHeroArray = []; // array of balanced heroes that will be sent to appendHeroes
@@ -78,6 +69,10 @@ function getBalance() {
     let carryTank = 0; // variable to hold amount of 'carry' a team has
     let tankTank = 0; // variable to hold amount of 'tank' a team has
     let balanceHeroI = 0; // iterator that will stop while loop when hero array is filled with 5 heroes
+
+    if (buttonI > 0) {
+        removeHeroes();
+    }
 
     while (balanceHeroArray.length < 5) {
         randomHero = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -91,30 +86,30 @@ function getBalance() {
                 if (tankTank < 1.5) {
                     balanceHeroArray.push(randomHero);
                     tankTank += heroArray[randomHero].zTankValue;
-                    tankTank += heroArray[randomHero].zCarryValue;
-                    tankTank += heroArray[randomHero].zSupportValue;
+                    carryTank += heroArray[randomHero].zCarryValue;
+                    supportTank += heroArray[randomHero].zSupportValue;
                 } else if (heroArray[randomHero].zTankValue > 0) {
                     console.log("hero # " + randomHero + " is too tanky.");
                 } else {
                     balanceHeroArray.push(randomHero);
                     tankTank += heroArray[randomHero].zTankValue;
-                    tankTank += heroArray[randomHero].zCarryValue;
-                    tankTank += heroArray[randomHero].zSupportValue;
+                    carryTank += heroArray[randomHero].zCarryValue;
+                    supportTank += heroArray[randomHero].zSupportValue;
                 }
             } else if (heroArray[randomHero].zCarryValue > 0) {
                 console.log("hero # " + randomHero + " does too much damage.");
             } else if (tankTank < 1.5) {
                 balanceHeroArray.push(randomHero);
                 tankTank += heroArray[randomHero].zTankValue;
-                tankTank += heroArray[randomHero].zCarryValue;
-                tankTank += heroArray[randomHero].zSupportValue;
+                carryTank += heroArray[randomHero].zCarryValue;
+                supportTank += heroArray[randomHero].zSupportValue;
             } else if (heroArray[randomHero].zTankValue > 0) {
                 console.log("hero # " + randomHero + " is too tanky.");
             } else {
                 balanceHeroArray.push(randomHero);
                 tankTank += heroArray[randomHero].zTankValue;
-                tankTank += heroArray[randomHero].zCarryValue;
-                tankTank += heroArray[randomHero].zSupportValue;
+                carryTank += heroArray[randomHero].zCarryValue;
+                supportTank += heroArray[randomHero].zSupportValue;
             }
         } else if (heroArray[randomHero].zSupportValue > 0) {
             console.log("hero # " + randomHero + " supports too much.");
@@ -122,37 +117,40 @@ function getBalance() {
             if (tankTank < 1.5) {
                 balanceHeroArray.push(randomHero);
                 tankTank += heroArray[randomHero].zTankValue;
-                tankTank += heroArray[randomHero].zCarryValue;
-                tankTank += heroArray[randomHero].zSupportValue;
+                carryTank += heroArray[randomHero].zCarryValue;
+                supportTank += heroArray[randomHero].zSupportValue;
             } else if (heroArray[randomHero].zTankValue > 0) {
                 console.log("hero # " + randomHero + " is too tanky.");
             } else {
                 balanceHeroArray.push(randomHero);
                 tankTank += heroArray[randomHero].zTankValue;
-                tankTank += heroArray[randomHero].zCarryValue;
-                tankTank += heroArray[randomHero].zSupportValue;
+                carryTank += heroArray[randomHero].zCarryValue;
+                supportTank += heroArray[randomHero].zSupportValue;
             }
         } else if (heroArray[randomHero].zCarryValue > 0) {
             console.log("hero # " + randomHero + " does too much damage.");
         } else if (tankTank < 1.5) {
             balanceHeroArray.push(randomHero);
             tankTank += heroArray[randomHero].zTankValue;
-            tankTank += heroArray[randomHero].zCarryValue;
-            tankTank += heroArray[randomHero].zSupportValue;
+            carryTank += heroArray[randomHero].zCarryValue;
+            supportTank += heroArray[randomHero].zSupportValue;
         } else if (heroArray[randomHero].zTankValue > 0) {
             console.log("hero # " + randomHero + " is too tanky.");
         } else {
             balanceHeroArray.push(randomHero);
             tankTank += heroArray[randomHero].zTankValue;
-            tankTank += heroArray[randomHero].zCarryValue;
-            tankTank += heroArray[randomHero].zSupportValue;
+            carryTank += heroArray[randomHero].zCarryValue;
+            supportTank += heroArray[randomHero].zSupportValue;
         }
 
         console.log("bottom of getBalance while loop.");
     }
     appendingHeroArray = balanceHeroArray;
+    buttonI++;
     appendHeroes(appendingHeroArray);
-}
+};
+
+// FUNCTION THAT GIVES HEROES VALUES FOR BALANCE ALGORITHM
 
 function giveBalance() {
     heroArray.forEach(function (hero) {
@@ -218,7 +216,25 @@ function giveBalance() {
 
     });
     console.log("heroArray after giveBalance: " + heroArray);
-}
+};
+
+// FUNCTION TO REMOVE HEROES FROM DOM
+
+function removeHeroes() {
+    //---------------------------
+    // this is the portion that checks to see if the random button has been pressed before and lets
+    //the js know to remove  
+
+    // if(randomI > 0){
+    //     let $selectionRemove = document.querySelector("table");
+    //     console.log("selectionRemove: " + $selectionRemove);
+    //     let $heroListingEl = document.querySelector("hero-selection");
+    //     console.log("newHero: " + $newHero);
+    //     $newHero.remove();
+    //     //$selectionRemove.removeChild($newHero);
+    // }
+    //---------------------------
+};
 
 // FUNCTION TO APPEND HEROES TO DOM
 
@@ -252,13 +268,11 @@ function appendHeroes(heroesToAppend) {
 
         $(".hero-table").append($newHero);
 
-
-
         console.log()
 
     })
 
-}
+};
 
 // initializing script
 
