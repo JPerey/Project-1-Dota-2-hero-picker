@@ -90,38 +90,62 @@ function getBalance() {
             if (carryTank < 1.5) {
                 if (tankTank < 1.5) {
                     balanceHeroArray.push(randomHero);
+                    tankTank += heroArray[randomHero].zTankValue;
+                    tankTank += heroArray[randomHero].zCarryValue;
+                    tankTank += heroArray[randomHero].zSupportValue;
                 } else if (heroArray[randomHero].zTankValue > 0) {
                     console.log("hero # " + randomHero + " is too tanky.");
                 } else {
                     balanceHeroArray.push(randomHero);
+                    tankTank += heroArray[randomHero].zTankValue;
+                    tankTank += heroArray[randomHero].zCarryValue;
+                    tankTank += heroArray[randomHero].zSupportValue;
                 }
             } else if (heroArray[randomHero].zCarryValue > 0) {
                 console.log("hero # " + randomHero + " does too much damage.");
             } else if (tankTank < 1.5) {
                 balanceHeroArray.push(randomHero);
+                tankTank += heroArray[randomHero].zTankValue;
+                tankTank += heroArray[randomHero].zCarryValue;
+                tankTank += heroArray[randomHero].zSupportValue;
             } else if (heroArray[randomHero].zTankValue > 0) {
                 console.log("hero # " + randomHero + " is too tanky.");
             } else {
                 balanceHeroArray.push(randomHero);
+                tankTank += heroArray[randomHero].zTankValue;
+                tankTank += heroArray[randomHero].zCarryValue;
+                tankTank += heroArray[randomHero].zSupportValue;
             }
         } else if (heroArray[randomHero].zSupportValue > 0) {
             console.log("hero # " + randomHero + " supports too much.");
         } else if (carryTank < 1.5) {
             if (tankTank < 1.5) {
                 balanceHeroArray.push(randomHero);
+                tankTank += heroArray[randomHero].zTankValue;
+                tankTank += heroArray[randomHero].zCarryValue;
+                tankTank += heroArray[randomHero].zSupportValue;
             } else if (heroArray[randomHero].zTankValue > 0) {
                 console.log("hero # " + randomHero + " is too tanky.");
             } else {
                 balanceHeroArray.push(randomHero);
+                tankTank += heroArray[randomHero].zTankValue;
+                tankTank += heroArray[randomHero].zCarryValue;
+                tankTank += heroArray[randomHero].zSupportValue;
             }
         } else if (heroArray[randomHero].zCarryValue > 0) {
             console.log("hero # " + randomHero + " does too much damage.");
         } else if (tankTank < 1.5) {
             balanceHeroArray.push(randomHero);
+            tankTank += heroArray[randomHero].zTankValue;
+            tankTank += heroArray[randomHero].zCarryValue;
+            tankTank += heroArray[randomHero].zSupportValue;
         } else if (heroArray[randomHero].zTankValue > 0) {
             console.log("hero # " + randomHero + " is too tanky.");
         } else {
             balanceHeroArray.push(randomHero);
+            tankTank += heroArray[randomHero].zTankValue;
+            tankTank += heroArray[randomHero].zCarryValue;
+            tankTank += heroArray[randomHero].zSupportValue;
         }
 
         console.log("bottom of getBalance while loop.");
