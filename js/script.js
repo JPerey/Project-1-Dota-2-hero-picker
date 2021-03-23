@@ -2,22 +2,22 @@
 let heroArray = []; // array to hold data from API
 let appendingHeroArray = []; //array that holds the specific ID's and data of heroes that will go on the DOM
 let randomHero; //number that chooses what hero in the heroArray will be picked
-let $newHero; //new hero object that creates the elements needed to be appened to the DOM
-let buttonI = 0;
+let newHero; //new hero object that creates the elements needed to be appened to the DOM
+let buttonI = 0; //iterator that checks if any of the buttons have been pressed so that js can remove previous elements
 const min = 0; // min index number for hero Array
 const max = 119; // max index number of hero Array
 
 
 // DOM ELEMENTS
 
-const $randomEl = document.getElementById("random-btn");
-const $balanceEl = document.getElementById("balance-btn");
-const $tableEl = document.querySelector("hero-table");
+const randomEl = document.getElementById("random-btn");
+const balanceEl = document.getElementById("balance-btn");
+const tableEl = document.querySelector("hero-table");
 
 // EVENT LISTENERS
 
-$randomEl.addEventListener("click", getRandom);
-$balanceEl.addEventListener("click", getBalance);
+randomEl.addEventListener("click", getRandom);
+balanceEl.addEventListener("click", getBalance);
 
 // FUNCTIONS
 
@@ -68,7 +68,7 @@ function getBalance() {
     let supportTank = 0; // variable to hold amount of 'support' a team has
     let carryTank = 0; // variable to hold amount of 'carry' a team has
     let tankTank = 0; // variable to hold amount of 'tank' a team has
-    let balanceHeroI = 0; // iterator that will stop while loop when hero array is filled with 5 heroes
+    let previousHero = []; // array that will hold previous heroes so that loop does not iterate over previous heroes
 
     if (buttonI > 0) {
         removeHeroes();
@@ -76,8 +76,9 @@ function getBalance() {
 
     while (balanceHeroArray.length < 5) {
         randomHero = Math.floor(Math.random() * (max - min + 1)) + min;
+        previousHero.push(randomHero);
         console.log("Random Hero #: " + randomHero)
-        while (balanceHeroArray.indexOf(randomHero) !== -1) {
+        while ((balanceHeroArray.indexOf(randomHero) !== -1) || previousHero.includes(randomHero)) {
             console.log("I ran and the index was: " + balanceHeroArray.indexOf(randomHero));
             randomHero = Math.floor(Math.random() * (max - min + 1)) + min;
         }
@@ -222,18 +223,11 @@ function giveBalance() {
 
 function removeHeroes() {
     //---------------------------
-    // this is the portion that checks to see if the random button has been pressed before and lets
-    //the js know to remove  
+    // this is the portion that checks to see if the "random/balance" button has been pressed before and lets
+    // js know to remove  
 
-    // if(randomI > 0){
-    //     let $selectionRemove = document.querySelector("table");
-    //     console.log("selectionRemove: " + $selectionRemove);
-    //     let $heroListingEl = document.querySelector("hero-selection");
-    //     console.log("newHero: " + $newHero);
-    //     $newHero.remove();
-    //     //$selectionRemove.removeChild($newHero);
-    // }
-    //---------------------------
+    $(".hero-selection").empty();
+
 };
 
 // FUNCTION TO APPEND HEROES TO DOM
@@ -241,11 +235,6 @@ function removeHeroes() {
 function appendHeroes(heroesToAppend) {
     console.log("heres the herosToAppendArray: " + heroesToAppend);
     heroesToAppend.forEach(function (hero) {
-        //const heroPicTag = ``; //document.createElement("td");
-        // const heroNameTag = document.createElement("td");
-        // const heroAtt1Tag = document.createElement("td");
-        // const heroAtt2Tag = document.createElement("td");
-        // const heroAtt3Tag = document.createElement("td");
 
         heroNameTag = heroArray[hero]["localized_name"];
         console.log("heroesNameTag: " + heroNameTag);
@@ -256,7 +245,7 @@ function appendHeroes(heroesToAppend) {
         heroAtt3Tag = heroArray[hero]["roles"][2];
         console.log("heroeAtt3Tag: " + heroAtt3Tag);
 
-        $newHero = `<tr class="hero-selection">
+        newHero = `<tr class="hero-selection">
         <td><img src="./pics/a0.png"></td>
         <td>${heroNameTag}</td>
         <td>${heroAtt1Tag}</td>
@@ -264,9 +253,9 @@ function appendHeroes(heroesToAppend) {
         <td>${heroAtt3Tag}</td>
                         </tr>`;
 
-        console.log("heres the $newHero: " + $newHero);
+        console.log("heres the $newHero: " + newHero);
 
-        $(".hero-table").append($newHero);
+        $(".hero-table").append(newHero);
 
         console.log()
 
