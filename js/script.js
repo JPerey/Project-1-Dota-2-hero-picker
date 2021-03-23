@@ -88,7 +88,7 @@ function getBalance() {
                     carryTank += heroArray[randomHero].zCarryValue;
                     supportTank += heroArray[randomHero].zSupportValue;
                 } else if (heroArray[randomHero].zTankValue > 0) {
-                    console.log("hero # " + heroArray[hero]["localized_name"] + " is too tanky.");
+                    console.log("hero # " + heroArray[randomHero]["localized_name"] + " is too tanky.");
                 } else {
                     balanceHeroArray.push(randomHero);
                     previousHero.push(randomHero);
@@ -97,7 +97,7 @@ function getBalance() {
                     supportTank += heroArray[randomHero].zSupportValue;
                 }
             } else if (heroArray[randomHero].zCarryValue > 0) {
-                console.log("hero # " + heroArray[hero]["localized_name"] + " does too much damage.");
+                console.log("hero # " + heroArray[randomHero]["localized_name"] + " does too much damage.");
             } else if (tankTank < 1.5) {
                 balanceHeroArray.push(randomHero);
                 previousHero.push(randomHero);
@@ -105,7 +105,7 @@ function getBalance() {
                 carryTank += heroArray[randomHero].zCarryValue;
                 supportTank += heroArray[randomHero].zSupportValue;
             } else if (heroArray[randomHero].zTankValue > 0) {
-                console.log("hero # " + heroArray[hero]["localized_name"] + " is too tanky.");
+                console.log("hero # " + heroArray[randomHero]["localized_name"] + " is too tanky.");
             } else {
                 balanceHeroArray.push(randomHero);
                 tankTank += heroArray[randomHero].zTankValue;
@@ -113,7 +113,7 @@ function getBalance() {
                 supportTank += heroArray[randomHero].zSupportValue;
             }
         } else if (heroArray[randomHero].zSupportValue > 0) {
-            console.log("hero # " + heroArray[hero]["localized_name"] + " supports too much.");
+            console.log("hero # " + heroArray[randomHero]["localized_name"] + " supports too much.");
         } else if (carryTank < 1.5) {
             if (tankTank < 1.5) {
                 balanceHeroArray.push(randomHero);
@@ -122,7 +122,7 @@ function getBalance() {
                 carryTank += heroArray[randomHero].zCarryValue;
                 supportTank += heroArray[randomHero].zSupportValue;
             } else if (heroArray[randomHero].zTankValue > 0) {
-                console.log("hero # " + heroArray[hero]["localized_name"]+ " is too tanky.");
+                console.log("hero # " + heroArray[randomHero]["localized_name"]+ " is too tanky.");
             } else {
                 balanceHeroArray.push(randomHero);
                 tankTank += heroArray[randomHero].zTankValue;
@@ -130,7 +130,7 @@ function getBalance() {
                 supportTank += heroArray[randomHero].zSupportValue;
             }
         } else if (heroArray[randomHero].zCarryValue > 0) {
-            console.log("hero # " + heroArray[hero]["localized_name"] + " does too much damage.");
+            console.log("hero # " + heroArray[randomHero]["localized_name"] + " does too much damage.");
         } else if (tankTank < 1.5) {
             balanceHeroArray.push(randomHero);
             previousHero.push(randomHero);
@@ -138,7 +138,7 @@ function getBalance() {
             carryTank += heroArray[randomHero].zCarryValue;
             supportTank += heroArray[randomHero].zSupportValue;
         } else if (heroArray[randomHero].zTankValue > 0) {
-            console.log("hero # " + heroArray[hero]["localized_name"] + " is too tanky.");
+            console.log("hero # " + heroArray[randomHero]["localized_name"] + " is too tanky.");
         } else {
             balanceHeroArray.push(randomHero);
             previousHero.push(randomHero);
