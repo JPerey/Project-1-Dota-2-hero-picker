@@ -1,4 +1,4 @@
-// initial variables
+// INITIAL VARIABLES
 let heroArray = []; // array to hold data from API
 let appendingHeroArray = []; //array that holds the specific ID's and data of heroes that will go on the DOM
 let randomHero; //number that chooses what hero in the heroArray will be picked
@@ -22,7 +22,6 @@ balanceEl.addEventListener("click", getBalance);
 // FUNCTIONS
 
 // FUNCTION TO PULL DATA FROM API AND MAP TO HEROARRAY
-
 function init() {
     $.ajax("https://api.opendota.com/api/heroes").then(function (data) {
         heroArray = data.map(a => Object.assign({}, a));;
@@ -34,7 +33,6 @@ function init() {
 };
 
 //FUNCTION TO GIVE 5 RANDOMLY PICKED HEROES
-
 function getRandom() {
     const randomHeroArray = [];
 
@@ -61,7 +59,6 @@ function getRandom() {
 };
 
 //FUNCTION TO GIVE BALANCED TEAM OF HEROES
-
 function getBalance() {
     const balanceHeroArray = []; // array of balanced heroes that will be sent to appendHeroes
 
@@ -152,7 +149,6 @@ function getBalance() {
 };
 
 // FUNCTION THAT GIVES HEROES VALUES FOR BALANCE ALGORITHM
-
 function giveBalance() {
     heroArray.forEach(function (hero) {
         if (hero.roles.includes("Support")) {
@@ -220,7 +216,6 @@ function giveBalance() {
 };
 
 // FUNCTION TO REMOVE HEROES FROM DOM
-
 function removeHeroes() {
     //---------------------------
     // this is the portion that checks to see if the "random/balance" button has been pressed before and lets
@@ -231,7 +226,6 @@ function removeHeroes() {
 };
 
 // FUNCTION TO APPEND HEROES TO DOM
-
 function appendHeroes(heroesToAppend) {
     console.log("heres the herosToAppendArray: " + heroesToAppend);
     heroesToAppend.forEach(function (hero) {
@@ -263,6 +257,5 @@ function appendHeroes(heroesToAppend) {
 
 };
 
-// initializing script
-
+// INITIALIZING SCRIPT
 init();
