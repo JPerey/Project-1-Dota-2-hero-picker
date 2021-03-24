@@ -8,14 +8,17 @@ A web app that helps indecisive players choose heros for their team.
 - CSS3
 - Javascript
 - jQuery
-- openDota API
+- openDota API (Unofficial)
 
 ## Wireframes/ Screenshots
 
 ![wireframe](./pics/wireframe.png)
 
+![wireframe3](./pics/wireframe3.png)
+
 ## Getting started
 
+[Click Here To Get Started](https://jperey.github.io/Project-1-Dota-2-hero-picker/)
 
 ## Future enhancements
 
