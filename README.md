@@ -10,7 +10,7 @@ A web app that helps indecisive players choose heros for their team.
 - jQuery
 - openDota API
 
-## Wireframes/ Screenshots
+## Wireframes/ Screenshots 
 
 ![wireframe](./pics/wireframe.png)
 
