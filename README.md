@@ -14,8 +14,11 @@ A web app that helps indecisive players choose heros for their team.
 
 ![wireframe](./pics/wireframe.png)
 
+![wireframe](./pics/wireframe3.png)
+
 ## Getting started
 
+[Click Here To Get Started](https://jperey.github.io/Project-1-Dota-2-hero-picker/)
 
 ## Future enhancements
 
